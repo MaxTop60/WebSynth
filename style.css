@@ -3,23 +3,56 @@ body {
     background-color: #f0f0f0;
 }
 
+.root {
+    border: 2px solid black;
+}
+
+input[type=range] {
+    border: none;
+}
+
 .keyboard {
-    width: 80%;
+    position: relative;
+    width: 440px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     border: 2px solid #000;
     background-color: #aaa;
+    margin-top: 92px;
+}
+
+.key_white_container {
+    display: flex;
+}
+
+.key_black_container {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: start;
+}
+
+.key_black_group {
+    display: flex;
+    justify-content: space-around;
+    width: 19%;
+    margin-left: 17%;
+}
+
+.key_black_group_big {
+    width: 28%;
+    margin-left: 9.5%;
 }
 
 .key {
     width: 40px;
     height: 150px;
-    margin: 3px;
+    margin: 0;
     background-color: #fff;
     border: 1px solid #000;
-    border-radius: 10px;
+    border-radius: 3px;
     display: flex;
     justify-content: center;
     align-items: end;
@@ -49,7 +82,7 @@ body {
     width: 80%;
     margin: auto;
     margin-top: 20px;
-    border: 2px solid black;
+    text-align: center;
 }
 
 .panel select{

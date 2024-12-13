@@ -8,63 +8,75 @@
     <script src="https://cdn.jsdelivr.net/npm/tone/build/Tone.js"></script>
 </head>
 <body>
-    <div class="panel">
-        <div class="waveform">
-            <select id="waveform1">
-                <option value="sine">Sine</option>
-                <option value="square">Square</option>
-                <option value="triangle">Triangle</option>
-                <option value="saw">Saw</option>
-                <input type="range" id="volume1" min="-100" max="0" value="-20" class="volume">
-            </select>
+    <div class="root">
+        <div class="panel">
+            <div class="waveform">
+                <select id="waveform1">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="saw">Saw</option>
+                    <input type="range" id="volume1" min="-100" max="0" value="-20" class="volume">
+                </select>
+            </div>
+        
+            <div class="waveform">
+                <select id="waveform2">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="saw">Saw</option>
+                    <input type="range" id="volume2" min="-100" max="0" value="-20" class="volume">
+                </select>
+            </div>
+        
+            <div class="waveform">
+                <select id="waveform3">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="saw">Saw</option>
+                    <input type="range" id="volume3" min="-100" max="0" value="-20" class="volume">
+                </select>
+            </div>
+        
+            <div class="waveform">
+                <select id="waveform4">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="saw">Saw</option>
+                    <input type="range" id="volume4" min="-100" max="0" value="-20" class="volume">
+                </select>
+            </div>
         </div>
-
-        <div class="waveform">
-            <select id="waveform2">
-                <option value="sine">Sine</option>
-                <option value="square">Square</option>
-                <option value="triangle">Triangle</option>
-                <option value="saw">Saw</option>
-                <input type="range" id="volume2" min="-100" max="0" value="-20" class="volume">
-            </select>
+        
+        <div class="keyboard">
+            <div class="key_white_container">
+                <div class="key" id="C" data-note="C">C</div>
+                <div class="key" id="D" data-note="D">D</div>
+                <div class="key" id="E" data-note="E">E</div>
+                <div class="key" id="F" data-note="F">F</div>
+                <div class="key" id="G" data-note="G">G</div>
+                <div class="key" id="A" data-note="A">A</div>
+                <div class="key" id="B" data-note="B">B</div>
+                <div class="key" id="C2" data-note="C2">C2</div>
+            </div>
+        
+        
+            <div class="key_black_container">
+                <div class="key_black_group">
+                    <div class="key key_black" id="C#" data-note="C#">C#</div>
+                    <div class="key key_black" id="D#" data-note="D#">D#</div>
+                </div>
+        
+                <div class="key_black_group key_black_group_big">
+                    <div class="key key_black" id="F#" data-note="F#">F#</div>
+                    <div class="key key_black" id="G#" data-note="G#">G#</div>
+                    <div class="key key_black" id="A#" data-note="A#">A#</div>
+                </div>
+            </div>
         </div>
-
-        <div class="waveform">
-            <select id="waveform3">
-                <option value="sine">Sine</option>
-                <option value="square">Square</option>
-                <option value="triangle">Triangle</option>
-                <option value="saw">Saw</option>
-                <input type="range" id="volume3" min="-100" max="0" value="-20" class="volume">
-            </select>
-        </div>
-
-        <div class="waveform">
-            <select id="waveform4">
-                <option value="sine">Sine</option>
-                <option value="square">Square</option>
-                <option value="triangle">Triangle</option>
-                <option value="saw">Saw</option>
-                <input type="range" id="volume4" min="-100" max="0" value="-20" class="volume">
-            </select>
-        </div>
-    </div>
-
-    </div>
-     <div class="keyboard">
-        <div class="key" id="C" data-note="C">C</div>
-        <div class="key key_black" id="C#" data-note="C#">C#</div>
-        <div class="key" id="D" data-note="D">D</div>
-        <div class="key key_black" id="D#" data-note="D#">D#</div>
-        <div class="key" id="E" data-note="E">E</div>
-        <div class="key" id="F" data-note="F">F</div>
-        <div class="key key_black" id="F#" data-note="F#">F#</div>
-        <div class="key" id="G" data-note="G">G</div>
-        <div class="key key_black" id="G#" data-note="G#">G#</div>
-        <div class="key" id="A" data-note="A">A</div>
-        <div class="key key_black" id="A#" data-note="A#">A#</div>
-        <div class="key" id="B" data-note="B">B</div>
-        <div class="key" id="C2" data-note="C2">C2</div>
     </div>
     <script src="script.js"></script>
 </body>
