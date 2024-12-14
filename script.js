@@ -1,5 +1,7 @@
 const oscillators = Array(4).fill(null).map(() => ({ oscillator: null, gainNode: null }));
 
+//JOPA
+
 const waveforms = [
     document.getElementById('waveform1'),
     document.getElementById('waveform2'),
