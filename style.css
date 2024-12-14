@@ -5,6 +5,7 @@ body {
 
 .root {
     border: 2px solid black;
+    overflow: scroll;
 }
 
 input[type=range] {
@@ -13,14 +14,14 @@ input[type=range] {
 
 .keyboard {
     position: relative;
-    width: 640px;
+    width: 60%;
     margin: auto;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     border: 2px solid #000;
     background-color: #aaa;
     margin-top: 92px;
+    overflow: scroll;
 }
 
 .key_white_container {
@@ -28,7 +29,7 @@ input[type=range] {
 }
 
 .key_black_container {
-    width: 100%;
+    max-width: 640px;
     position: absolute;
     display: flex;
     justify-content: start;
@@ -38,7 +39,7 @@ input[type=range] {
     display: flex;
     justify-content: space-around;
     width: 81px;
-    margin-left: 30px;
+    margin-left: -39px;
 }
 
 .key_black_group_2 {
@@ -98,3 +99,4 @@ input[type=range] {
 .volume {
     width: 20%;
 }
+
