@@ -13,7 +13,7 @@ input[type=range] {
 
 .keyboard {
     position: relative;
-    width: 440px;
+    width: 640px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
@@ -37,13 +37,17 @@ input[type=range] {
 .key_black_group {
     display: flex;
     justify-content: space-around;
-    width: 19%;
-    margin-left: 17%;
+    width: 81px;
+    margin-left: 30px;
+}
+
+.key_black_group_2 {
+    margin-left: 44px;
 }
 
 .key_black_group_big {
-    width: 28%;
-    margin-left: 9.5%;
+    width: 125px;
+    margin-left: 42px;
 }
 
 .key {
