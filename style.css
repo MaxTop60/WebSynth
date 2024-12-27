@@ -1,38 +1,63 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    overflow-y: hidden;
 }
 
 .root {
-    border: 2px solid black;
-    overflow: scroll;
+    position: relative;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 input[type=range] {
     border: none;
 }
 
-.keyboard {
-    position: relative;
+.synth {
+    background-color: #000;
     width: 60%;
-    margin: auto;
+    margin: auto;   
     display: flex;
     justify-content: center;
-    border: 2px solid #000;
-    background-color: #aaa;
+    flex-direction: column;
+}
+
+.keyboard {
+    position: relative;
+    margin: auto;
+    background-color: #080808;
     margin-top: 92px;
-    overflow: scroll;
+    max-width: 90%;
+    overflow: auto;
+    padding: 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-bottom: 15px;
+}
+
+.keyboard::-webkit-scrollbar {
+    display: none;
 }
 
 .key_white_container {
+    width: 700px;
     display: flex;
+    justify-content: center;
+    margin: auto;
 }
 
 .key_black_container {
-    max-width: 640px;
-    position: absolute;
+    width: 700px;
+    position:absolute;
     display: flex;
-    justify-content: start;
+    justify-content: center;
+    top: 0;
+    left: -20px;
 }
 
 .key_black_group {
@@ -40,6 +65,10 @@ input[type=range] {
     justify-content: space-around;
     width: 81px;
     margin-left: -39px;
+}
+
+.key_black_group_first {
+    margin: 0;
 }
 
 .key_black_group_2 {
@@ -99,4 +128,3 @@ input[type=range] {
 .volume {
     width: 20%;
 }
-
