@@ -1,5 +1,7 @@
 const oscillators = Array(4).fill(null).map(() => ({ oscillator: null, gainNode: null }));
 
+//JOPA
+
 const waveforms = [
     document.getElementById('waveform1'),
     document.getElementById('waveform2'),
@@ -27,7 +29,19 @@ const noteFrequencies = {
     'A': 440.00,
     'A#': 466.16,
     'B': 493.88,
-    'C2': 523.25
+    'C2': 523.25,
+    'C2#': 277.18,
+    'D2': 293.66,
+    'D2#': 311.13,
+    'E2': 329.63,
+    'F2': 349.23,
+    'F2#': 369.99,
+    'G2': 392.00,
+    'G2#': 415.30,
+    'A2': 440.00,
+    'A2#': 466.16,
+    'B2': 493.88,
+    'C3': 523.25
 };
 
 const keyBindings = {
