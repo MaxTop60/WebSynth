@@ -92,6 +92,7 @@ input[type=range] {
     align-items: end;
     font-size: 14px;
     cursor: pointer;
+    user-select: none;
 }
 
 .key_black {

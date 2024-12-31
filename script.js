@@ -1,6 +1,13 @@
-const oscillators = Array(4).fill(null).map(() => ({ oscillator: null, gainNode: null }));
+// Я СЛУЧАЙНО СОЗДАЛ СИНТЕЗАТОР ЗВУКОВ ИЗ АДА
 
-// JOPA
+// Инициализация Tone.js
+const synths = Array.from({ length: 4 }, () => new Tone.PolySynth().toDestination());
+const volumes = [
+    document.getElementById('volume1'),
+    document.getElementById('volume2'),
+    document.getElementById('volume3'),
+    document.getElementById('volume4')
+];
 
 const waveforms = [
     document.getElementById('waveform1'),
@@ -9,13 +16,7 @@ const waveforms = [
     document.getElementById('waveform4')
 ];
 
-const volumes = [
-    document.getElementById('volume1'),
-    document.getElementById('volume2'),
-    document.getElementById('volume3'),
-    document.getElementById('volume4')
-];
-
+// Частоты нот
 const noteFrequencies = {
     'C': 261.63,
     'C#': 277.18,
@@ -30,126 +31,94 @@ const noteFrequencies = {
     'A#': 466.16,
     'B': 493.88,
     'C2': 523.25,
-    'C#2': 277.18*2,
-    'D2': 293.66*2,
-    'D#2': 311.13*2,
-    'E2': 329.63*2,
-    'F2': 349.23*2,
-    'F#2': 369.99*2,
-    'G2': 392.00*2,
-    'G#2': 415.30*2,
-    'A2': 440.00*2,
-    'A#2': 466.16*2,
-    'B2': 493.88*2,
-    'C3': 261.63*4,
+    'C#2': 554.37,
+    'D2': 587.33,
+    'D#2': 622.25,
+    'E2': 659.25,
+    'F2': 698.46,
+    'F#2': 739.99,
+    'G2': 783.99,
+    'G#2': 830.61,
+    'A2': 880.00,
+    'A#2': 932.33,
+    'B2': 987.77,
+    'C3': 1046.50
 };
 
-const keyBindings = {
-    'C': 'A',
-    'C#': 'W',
-    'D': 'S',
-    'D#': 'E',
-    'E': 'D',
-    'F': 'F',
-    'F#': 'T',
-    'G': 'G',
-    'G#': 'Y',
-    'A': 'H',
-    'A#': 'U',
-    'B': 'J',
-    'C2': 'K'
-};
-
-function createOscillator(index, frequency) {
-    const osc = new Tone.Oscillator(frequency, waveforms[index].value).toDestination();
-    const gainNode = new Tone.Gain(Math.pow(10, volumes[index].value / 20)).toDestination();
-    
-    osc.connect(gainNode);
-    
-    oscillators[index] = { oscillator: osc, gainNode: gainNode };
+// Функция для создания осцилляторов
+function createSynth(index) {
+    synths[index].set({
+        oscillator: {
+            type: waveforms[index].value
+        },
+        volume: Math.pow(10, volumes[index].value / 20) // Преобразуем в линейное значение
+    });
 }
 
-function startOscillator(index, frequency) {
-    if (!oscillators[index].oscillator) {
-        createOscillator(index, frequency);
-    }
-    oscillators[index].oscillator.start();
-}
-
-function stopOscillator(index) {
-    if (oscillators[index].oscillator) {
-        oscillators[index].oscillator.stop();
-        oscillators[index].oscillator = null;
+// Обновление настроек синтезаторов при изменении формы волны или громкости
+function updateSynthSettings() {
+    for (let i = 0; i < synths.length; i++) {
+        createSynth(i);
     }
 }
 
-function updateVolume(index) {
-    if (oscillators[index].gainNode) {
-        oscillators[index].gainNode.gain.setValueAtTime(Math.pow(10, volumes[index].value / 20), Tone.now());
-    }
-}
-
+// Обработчик изменения формы волны
 waveforms.forEach((waveform, index) => {
     waveform.addEventListener('change', () => {
-        if (oscillators[index].oscillator) {
-            const frequency = oscillators[index].oscillator.frequency.value;
-            stopOscillator(index);
-            startOscillator(index, frequency);
-        }
+        createSynth(index);
     });
 });
 
+// Обработчик изменения громкости
 volumes.forEach((volume, index) => {
     volume.addEventListener('input', () => {
-        updateVolume(index);
+        synths[index].set({
+            volume: Math.pow(10, volume.value / 20)
+        });
     });
 });
 
+// Обработчик нажатия на клавиши
 const keys = document.querySelectorAll('.key');
-
-function playSound(note) {
-    const frequency = noteFrequencies[note];
-    for (let i = 0; i < oscillators.length; i++) {
-        startOscillator(i, frequency);
-    }
-    const keyElement = document.querySelector(`.key[data-note="${note}"]`);
-    if (keyElement) {
-        keyElement.classList.add('active');
-    }
-}
-
-function stopSound(note) {
-    for (let i = 0; i < oscillators.length; i++) {
-        stopOscillator(i);
-    }
-    const keyElement = document.querySelector(`.key[data-note="${note}"]`);
-    if (keyElement) {
-        keyElement.classList.remove('active');
-    }
-}
 
 keys.forEach((key) => {
     key.addEventListener('mousedown', () => {
         const note = key.getAttribute('data-note');
         playSound(note);
+        key.classList.add('active'); // Добавляем активный класс
     });
 
     key.addEventListener('mouseup', () => {
         const note = key.getAttribute('data-note');
         stopSound(note);
+        key.classList.remove('active'); // Убираем активный класс
+    });
+
+    key.addEventListener('mouseleave', () => {
+        const note = key.getAttribute('data-note');
+        stopSound(note);
+        key.classList.remove('active'); // Убираем активный класс при выходе мыши
     });
 });
 
-document.addEventListener('keydown', (event) => {
-    const note = Object.keys(keyBindings).find((note) => keyBindings[note] === event.key.toUpperCase());
-    if (note) {
-        playSound(note);
-    }
-});
+// Воспроизвести звук
+function playSound(note) {
+    const frequency = noteFrequencies[note];
+    synths.forEach(synth => {
+        synth.triggerAttack(frequency);
+    });
+}
 
-document.addEventListener('keyup', (event) => {
-    const note = Object.keys(keyBindings).find((note) => keyBindings[note] === event.key.toUpperCase());
-    if (note) {
-        stopSound(note);
-    }
+// Остановить звук
+function stopSound(note) {
+    const frequency = noteFrequencies[note];
+    synths.forEach(synth => {
+        synth.triggerRelease();
+    });
+}
+
+// Запуск Tone.js
+Tone.start().then(() => {
+    console.log('Audio context started');
+    updateSynthSettings(); // Инициализация синтезаторов
 });
