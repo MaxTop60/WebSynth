@@ -1,7 +1,4 @@
-// Я СЛУЧАЙНО СОЗДАЛ СИНТЕЗАТОР ЗВУКОВ ИЗ АДА
-
-// Инициализация Tone.js
-const synths = Array.from({ length: 4 }, () => new Tone.PolySynth().toDestination());
+// Получаем ссылки на элементы
 const volumes = [
     document.getElementById('volume1'),
     document.getElementById('volume2'),
@@ -16,109 +13,120 @@ const waveforms = [
     document.getElementById('waveform4')
 ];
 
-// Частоты нот
-const noteFrequencies = {
-    'C': 261.63,
-    'C#': 277.18,
-    'D': 293.66,
-    'D#': 311.13,
-    'E': 329.63,
-    'F': 349.23,
-    'F#': 369.99,
-    'G': 392.00,
-    'G#': 415.30,
-    'A': 440.00,
-    'A#': 466.16,
-    'B': 493.88,
-    'C2': 523.25,
-    'C#2': 554.37,
-    'D2': 587.33,
-    'D#2': 622.25,
-    'E2': 659.25,
-    'F2': 698.46,
-    'F#2': 739.99,
-    'G2': 783.99,
-    'G#2': 830.61,
-    'A2': 880.00,
-    'A#2': 932.33,
-    'B2': 987.77,
-    'C3': 1046.50
-};
-
-// Функция для создания осцилляторов
-function createSynth(index) {
-    synths[index].set({
-        oscillator: {
-            type: waveforms[index].value
-        },
-        volume: Math.pow(10, volumes[index].value / 20) // Преобразуем в линейное значение
-    });
-}
-
-// Обновление настроек синтезаторов при изменении формы волны или громкости
-function updateSynthSettings() {
-    for (let i = 0; i < synths.length; i++) {
-        createSynth(i);
-    }
-}
-
-// Обработчик изменения формы волны
-waveforms.forEach((waveform, index) => {
-    waveform.addEventListener('change', () => {
-        createSynth(index);
-    });
-});
-
-// Обработчик изменения громкости
-volumes.forEach((volume, index) => {
-    volume.addEventListener('input', () => {
-        synths[index].set({
-            volume: Math.pow(10, volume.value / 20)
-        });
-    });
-});
-
-// Обработчик нажатия на клавиши
 const keys = document.querySelectorAll('.key');
+const synths = [];
 
-keys.forEach((key) => {
-    key.addEventListener('mousedown', () => {
-        const note = key.getAttribute('data-note');
-        playSound(note);
-        key.classList.add('active'); // Добавляем активный класс
+// Задаем минимальное значение громкости в децибелах
+const minDbVolume = 0; // Установите минимальную громкость на 0 дБ
+
+// Создаем синтезаторы для каждого модуля
+for (let i = 0; i < 4; i++) {
+    const synth = new Tone.Synth({
+        oscillator: {
+            type: waveforms[i].value,
+        },
+        envelope: {
+            attack: 0,
+            decay: 0.1,
+            sustain: 0.5,
+            release: 1,
+        }
+    }).toDestination();
+
+    // Устанавливаем начальное значение громкости
+    synth.volume.value = minDbVolume; // Устанавливаем начальную громкость на 0 дБ
+    synths.push(synth);
+
+    // Обработчик изменения формы волны
+    waveforms[i].addEventListener('change', () => {
+        synth.oscillator.type = waveforms[i].value;
     });
 
-    key.addEventListener('mouseup', () => {
-        const note = key.getAttribute('data-note');
-        stopSound(note);
-        key.classList.remove('active'); // Убираем активный класс
-    });
-
-    key.addEventListener('mouseleave', () => {
-        const note = key.getAttribute('data-note');
-        stopSound(note);
-        key.classList.remove('active'); // Убираем активный класс при выходе мыши
-    });
-});
-
-// Воспроизвести звук
-function playSound(note) {
-    const frequency = noteFrequencies[note];
-    synths.forEach(synth => {
-        synth.triggerAttack(frequency);
+    // Обработчик изменения громкости
+    volumes[i].addEventListener('input', () => {
+        // Преобразуем значение ползунка в децибелы
+        const volumeValue = volumes[i].value; // предполагается, что значение от 0 до 100
+        const dbValue = (volumeValue / 100) * 20; // Преобразование в диапазон от 0 до 20 дБ
+        synth.volume.value = minDbVolume + dbValue; // Устанавливаем громкость от 0 дБ до 20 дБ
     });
 }
 
-// Остановить звук
-function stopSound(note) {
-    const frequency = noteFrequencies[note];
+// Функция воспроизведения ноты для всех синтезаторов
+function playNoteForAllSynths(note) {
+    synths.forEach(synth => {
+        synth.triggerAttack(note);
+    });
+}
+
+// Функция остановки ноты для всех синтезаторов
+function stopNoteForAllSynths() {
     synths.forEach(synth => {
         synth.triggerRelease();
     });
 }
 
-// Запуск Tone.js
-Tone.start().then(() => {
-    console.log('Audio context started');
-    updateSynthSettings(); // Инициализация синтезаторов
+// Обработчик нажатия клавиш на клавиатуре
+document.addEventListener('keydown', (event) => {
+    const noteMapping = {
+        'a': 'C4',
+        's': 'C#4',
+        'd': 'D4',
+        'f': 'D#4',
+        'g': 'E4',
+        'h': 'F4',
+        'j': 'F#4',
+        'k': 'G4',
+        'l': 'G#4',
+        ';': 'A4',
+        'z': 'A#4',
+        'x': 'B4',
+        'c': 'C5',
+    };
+
+    const note = noteMapping[event.key];
+    if (note) {
+        playNoteForAllSynths(note);
+    }
+});
+
+// Обработчик отпускания клавиш
+document.addEventListener('keyup', (event) => {
+    const noteMapping = {
+        'a': true,
+        's': true,
+        'd': true,
+        'f': true,
+        'g': true,
+        'h': true,
+        'j': true,
+        'k': true,
+        'l': true,
+        ';': true,
+        'z': true,
+        'x': true,
+        'c': true,
+    };
+
+    if (noteMapping[event.key]) {
+        stopNoteForAllSynths();
+    }
+});
+
+// Обработчик нажатия на клавиши мышью
+keys.forEach(key => {
+    key.addEventListener('mousedown', () => {
+        const note = key.getAttribute('data-note');
+        playNoteForAllSynths(note);
+    });
+
+    key.addEventListener('mouseup', () => {
+        stopNoteForAllSynths();
+    });
+
+    key.addEventListener('mouseover', (event) => {
+        if (event.buttons === 1) { // Проверяем, зажата ли левая кнопка мыши
+            const note = key.getAttribute('data-note');
+            playNoteForAllSynths(note);
+        }
+    });
 });
