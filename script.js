@@ -6,11 +6,29 @@ const volumes = [
     document.getElementById('volume4')
 ];
 
+const detunes = [
+    document.getElementById('detune1'),
+    document.getElementById('detune2'),
+    document.getElementById('detune3'),
+    document.getElementById('detune4')
+];
+
 const waveforms = [
     document.getElementById('waveform1'),
     document.getElementById('waveform2'),
     document.getElementById('waveform3'),
     document.getElementById('waveform4')
+];
+
+const tooltips = [
+    document.getElementById('volume1-tooltip'),
+    document.getElementById('volume2-tooltip'),
+    document.getElementById('volume3-tooltip'),
+    document.getElementById('volume4-tooltip'),
+    document.getElementById('detune1-tooltip'),
+    document.getElementById('detune2-tooltip'),
+    document.getElementById('detune3-tooltip'),
+    document.getElementById('detune4-tooltip')
 ];
 
 const keys = document.querySelectorAll('.key');
@@ -48,6 +66,18 @@ for (let i = 0; i < 4; i++) {
         const volumeValue = volumes[i].value; // предполагается, что значение от 0 до 100
         const dbValue = (volumeValue / 100) * 20; // Преобразование в диапазон от 0 до 20 дБ
         synth.volume.value = minDbVolume + dbValue; // Устанавливаем громкость от 0 дБ до 20 дБ
+
+        // Обновляем текст подсказки для громкости
+        tooltips[i].textContent = 'vol: ' + volumeValue;
+    });
+
+    // Обработчик изменения detune
+    detunes[i].addEventListener('input', () => {
+        const detuneValue = detunes[i].value; // предполагается, что значение от -1200 до 1200
+        synth.oscillator.detune.value = detuneValue; // Устанавливаем detune
+
+        // Обновляем текст подсказки для детюна
+        tooltips[i + 4].textContent = 'detune: ' + detuneValue;
     });
 }
 

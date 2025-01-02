@@ -16,6 +16,7 @@ body {
 
 input[type=range] {
     border: none;
+    width: 50px;
 }
 
 .synth {
@@ -30,7 +31,7 @@ input[type=range] {
 .keyboard {
     position: relative;
     margin: auto;
-    background-color: none;
+    background-color: rgb(35, 35, 35);
     margin-top: 92px;
     max-width: 90%;
     overflow: auto;
@@ -125,9 +126,59 @@ input[type=range] {
 .panel select{
     margin: 10px;
     padding: 10px;
-    font-size: 18px;
+    font-size: 12px;
 }
 
-.volume {
-    width: 20%;
+
+.tooltip {
+    font-size: 6px;
+    color: #666;
+    margin: auto;
+}
+
+.control-container {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 7px;
+}
+
+/* Стили для ползунка в Chrome, Safari и Edge */
+input[type="range"] {
+    -webkit-appearance: none; /* Убираем стандартный стиль */
+    width: 50; /* Ширина ползунка */
+    height: 3px; /* Высота трека */
+    background: #ddd; /* Цвет фона трека */
+    border-radius: 5px; /* Закругление углов */
+    outline: none; /* Убираем обводку */
+}
+
+/* Ползунок для Chrome, Safari и Edge */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Убираем стандартный стиль */
+    appearance: none; /* Убираем стандартный стиль */
+    width: 10px; /* Измените ширину круга регулятора */
+    height: 10px; /* Измените высоту круга регулятора */
+    background: #4CAF50; /* Цвет ползунка */
+    border-radius: 50%; /* Закругление углов */
+    cursor: pointer; /* Курсор при наведении */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Тень */
+}
+
+/* Ползунок для Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 10px; /* Измените ширину круга регулятора */
+    height: 10px; /* Измените высоту круга регулятора */
+    background: #4CAF50; /* Цвет ползунка */
+    border-radius: 50%; /* Закругление углов */
+    cursor: pointer; /* Курсор при наведении */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Тень */
+}
+
+/* Ползунок для IE */
+input[type="range"]::-ms-thumb {
+    width: 10px; /* Измените ширину круга регулятора */
+    height: 10px; /* Измените высоту круга регулятора */
+    background: #4CAF50; /* Цвет ползунка */
+    border-radius: 50%; /* Закругление углов */
+    cursor: pointer; /* Курсор при наведении */
 }
