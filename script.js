@@ -1,4 +1,3 @@
-// Получаем ссылки на элементы
 const volumes = [
     document.getElementById('volume1'),
     document.getElementById('volume2'),
@@ -35,7 +34,7 @@ const keys = document.querySelectorAll('.key');
 const synths = [];
 
 // Задаем минимальное значение громкости в децибелах
-const minDbVolume = 0; // Установите минимальную громкость на 0 дБ
+const minDbVolume = 0;
 
 // Создаем синтезаторы для каждого модуля
 for (let i = 0; i < 4; i++) {
@@ -73,8 +72,8 @@ for (let i = 0; i < 4; i++) {
 
     // Обработчик изменения detune
     detunes[i].addEventListener('input', () => {
-        const detuneValue = detunes[i].value; // предполагается, что значение от -1200 до 1200
-        synth.oscillator.detune.value = detuneValue; // Устанавливаем detune
+        const detuneValue = detunes[i].value;
+        synth.oscillator.detune.value = detuneValue;
 
         // Обновляем текст подсказки для детюна
         tooltips[i + 4].textContent = 'detune: ' + detuneValue;
@@ -98,49 +97,79 @@ function stopNoteForAllSynths() {
 // Обработчик нажатия клавиш на клавиатуре
 document.addEventListener('keydown', (event) => {
     const noteMapping = {
-        'a': 'C4',
-        's': 'C#4',
-        'd': 'D4',
-        'f': 'D#4',
-        'g': 'E4',
-        'h': 'F4',
-        'j': 'F#4',
-        'k': 'G4',
-        'l': 'G#4',
-        ';': 'A4',
-        'z': 'A#4',
-        'x': 'B4',
-        'c': 'C5',
+        'q': 'C4',   // До
+        '2': 'C#4',  // До диез
+        'w': 'D4',   // Ре
+        '3': 'D#4',  // Ре диез
+        'e': 'E4',   // Ми
+        'r': 'F4',   // Фа
+        '5': 'F#4',  // Фа диез
+        't': 'G4',   // Соль
+        '6': 'G#4',  // Соль диез
+        'y': 'A4',   // Ля
+        '7': 'A#4',  // Ля диез
+        'u': 'B4',   // Си
+        'i': 'C5',   // До
+        '9': 'C#5',  // До диез
+        'o': 'D5',   // Ре
+        '0': 'D#5',  // Ре диез
+        'p': 'E5',   // Ми
+        '[': 'F5',   // Фа
+        '=': 'F#5',  // Фа диез
+        ']': 'G5',   // Соль
+        '\\': 'G#5', // Соль диез
     };
+
 
     const note = noteMapping[event.key];
     if (note) {
         playNoteForAllSynths(note);
+        
+        const key = Array.from(keys).find(k => k.getAttribute('data-note') === note);
+        if (key) {
+            key.classList.add('active');
+        }
     }
+    
 });
 
 // Обработчик отпускания клавиш
 document.addEventListener('keyup', (event) => {
     const noteMapping = {
-        'a': true,
-        's': true,
-        'd': true,
-        'f': true,
-        'g': true,
-        'h': true,
-        'j': true,
-        'k': true,
-        'l': true,
-        ';': true,
-        'z': true,
-        'x': true,
-        'c': true,
+        'q': 'C4',
+        '2': 'C#4',
+        'w': 'D4',
+        '3': 'D#4',
+        'e': 'E4',
+        'r': 'F4',
+        '5': 'F#4',
+        't': 'G4',
+        '6': 'G#4',
+        'y': 'A4',
+        '7': 'A#4',
+        'u': 'B4',
+        'i': 'C5',
+        '9': 'C#5',
+        'o': 'D5',
+        '0': 'D#5',
+        'p': 'E5',
+        '[': 'F5',
+        '=': 'F#5',
+        ']': 'G5',
+        '\\': 'G#5',
     };
 
-    if (noteMapping[event.key]) {
+    const note = noteMapping[event.key];
+    if (note) {
         stopNoteForAllSynths();
+
+        const key = Array.from(keys).find(k => k.getAttribute('data-note') === note);
+        if (key) {
+            key.classList.remove('active');
+        }
     }
 });
+
 
 // Обработчик нажатия на клавиши мышью
 keys.forEach(key => {
