@@ -50,6 +50,78 @@ for (let i = 0; i < 4; i++) {
         }
     }).toDestination();
 
+const noteFrequencies = {
+    'C': 261.63,
+    'C#': 277.18,
+    'D': 293.66,
+    'D#': 311.13,
+    'E': 329.63,
+    'F': 349.23,
+    'F#': 369.99,
+    'G': 392.00,
+    'G#': 415.30,
+    'A': 440.00,
+    'A#': 466.16,
+    'B': 493.88,
+    'C2': 523.25,
+    'C#2': 277.18*2,
+    'D2': 293.66*2,
+    'D#2': 311.13*2,
+    'E2': 329.63*2,
+    'F2': 349.23*2,
+    'F#2': 369.99*2,
+    'G2': 392.00*2,
+    'G#2': 415.30*2,
+    'A2': 440.00*2,
+    'A#2': 466.16*2,
+    'B2': 493.88*2,
+    'C3': 261.63*4,
+    'C2#': 277.18,
+    'D2': 293.66,
+    'D2#': 311.13,
+    'E2': 329.63,
+    'F2': 349.23,
+    'F2#': 369.99,
+    'G2': 392.00,
+    'G2#': 415.30,
+    'A2': 440.00,
+    'A2#': 466.16,
+    'B2': 493.88,
+    'C3': 523.25
+};
+
+const keyBindings = {
+    'C': 'A',
+    'C#': 'W',
+    'D': 'S',
+    'D#': 'E',
+    'E': 'D',
+    'F': 'F',
+    'F#': 'T',
+    'G': 'G',
+    'G#': 'Y',
+    'A': 'H',
+    'A#': 'U',
+    'B': 'J',
+    'C2': 'K'
+};
+
+function createOscillator(index, frequency) {
+    const osc = new Tone.Oscillator(frequency, waveforms[index].value).toDestination();
+    const gainNode = new Tone.Gain(Math.pow(10, volumes[index].value / 20)).toDestination();
+    
+    osc.connect(gainNode);
+    
+    oscillators[index] = { oscillator: osc, gainNode: gainNode };
+}
+
+function startOscillator(index, frequency) {
+    if (!oscillators[index].oscillator) {
+        createOscillator(index, frequency);
+    }
+    oscillators[index].oscillator.start();
+}
+
     // Устанавливаем начальное значение громкости
     synth.volume.value = minDbVolume; // Устанавливаем начальную громкость на 0 дБ
     synths.push(synth);
