@@ -1,14 +1,36 @@
+@font-face {
+    font-family: "Varela";
+    src: url(./fonts/Varela-Regular.ttf);
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #b5d0ae;
+    background-color: #f0f0f0;
     overflow-y: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: "Varela";
+}
+
+.header {
+    margin-top: 20px;
+    padding: 0;
+    height: 100px;
+    display: flex;
+}
+
+.title {
+    margin: auto;
+    text-align: center;
+    font-size: 60px;
 }
 
 .root {
     position: relative;
-    width: 80%;
+    width: 100%;
     margin: auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -21,14 +43,12 @@ input[type=range] {
 
 .synth {
     background-color: #323232;
-    width: 60%;
+    width: 50%;
     margin: auto;   
     display: flex;
     justify-content: center;
     flex-direction: column;
-    border: 5px solid gray;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5), inset 0px 0px 20px rgba(0, 0, 0, 0.5);
-    
+    margin-top: 30px;
 }
 
 .keyboard {
@@ -42,8 +62,6 @@ input[type=range] {
     -ms-overflow-style: none;
     scrollbar-width: none;
     margin-bottom: 15px;
-    border: 1px solid gray;
-    box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
 .keyboard::-webkit-scrollbar {
@@ -133,12 +151,12 @@ input[type=range] {
 .panel select{
     margin: 10px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 
 .tooltip {
-    font-size: 10px;
+    font-size: 6px;
     color: #666;
     margin: auto;
 }
@@ -147,7 +165,6 @@ input[type=range] {
     display: flex;
     margin-top: 10px;
     margin-left: 7px;
-    margin-bottom: 10px;
 }
 
 .envelope-control {
@@ -163,40 +180,70 @@ input[type=range] {
 /* Стили для ползунка в Chrome, Safari и Edge */
 input[type="range"] {
     -webkit-appearance: none;
-    width: 50; 
-    height: 4px;
-    background: #ddd; 
+    width: 50;
+    height: 3px;
+    background: #ddd;
     border-radius: 5px;
-    outline: none; 
+    outline: none;
 }
 
 /* Ползунок для Chrome, Safari и Edge */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 13px;
-    height: 13px;
-    background: #4CAF50;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Ползунок для Firefox */
-input[type="range"]::-moz-range-thumb {
-    width: 13px; 
-    height: 13px; 
-    background: #4CAF50;
+    width: 10px;
+    height: 10px; 
+    background: #4CAF50; 
     border-radius: 50%; 
     cursor: pointer; 
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); 
 }
 
-/* Ползунок для IE */
-input[type="range"]::-ms-thumb {
+/* Ползунок для Firefox */
+input[type="range"]::-moz-range-thumb {
     width: 10px; 
     height: 10px;
     background: #4CAF50;
-    border-radius: 50%;
-    cursor: pointer;
+    border-radius: 50%; 
+    cursor: pointer; 
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Ползунок для IE */
+input[type="range"]::-ms-thumb {
+    width: 10px;
+    height: 10px; 
+    background: #4CAF50; 
+    border-radius: 50%; 
+    cursor: pointer; 
+}
+
+.footer {
+    position: relative;
+    background-color: #323232;
+    min-height: 130px;
+    width: 100%;
+}
+
+.authors {
+    list-style: none;
+    position: absolute;
+    right: 32px;
+}
+
+.author {
+    color: white;
+}
+
+.author:not(:first-of-type) {
+    margin-top: 5px;
+}
+
+.group {
+    position: absolute;
+    color: white;
+    right: 50px;
+    bottom: 5px;
+    font-weight: 600;
+    margin-top: 20px;
 }
