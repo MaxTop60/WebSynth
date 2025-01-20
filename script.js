@@ -27,8 +27,13 @@ const tooltips = [
     document.getElementById('detune1-tooltip'),
     document.getElementById('detune2-tooltip'),
     document.getElementById('detune3-tooltip'),
-    document.getElementById('detune4-tooltip')
+    document.getElementById('detune4-tooltip'),
+    document.getElementById('attack-tooltip'),
+    document.getElementById('release-tooltip')
 ];
+
+const envelopeAttack = document.getElementById('attack');
+const envelopeRelease = document.getElementById('release');
 
 const keys = document.querySelectorAll('.key');
 const synths = [];
@@ -54,6 +59,23 @@ for (let i = 0; i < 4; i++) {
     synth.volume.value = minDbVolume; // Устанавливаем начальную громкость на 0 дБ
     synths.push(synth);
 
+    // Обработчики изменения динамики (envelope)
+    envelopeAttack.addEventListener('input', () => {
+        const attackValue = envelopeAttack.value / 100; // Преобразуем значение
+        synths.forEach(synth => {
+            synth.envelope.attack = attackValue;
+            tooltips[8].textContent = 'attack: ' + envelopeAttack.value; // Обновляем подсказку
+        });
+    });
+
+    envelopeRelease.addEventListener('input', () => {
+        const releaseValue = envelopeRelease.value / 100; // Преобразуем значение
+        synths.forEach(synth => {
+            synth.envelope.release = releaseValue;
+            tooltips[9].textContent = 'release: ' + envelopeRelease.value; // Обновляем подсказку
+        });
+    });
+
     // Обработчик изменения формы волны
     waveforms[i].addEventListener('change', () => {
         synth.oscillator.type = waveforms[i].value;
@@ -62,12 +84,11 @@ for (let i = 0; i < 4; i++) {
     // Обработчик изменения громкости
     volumes[i].addEventListener('input', () => {
         // Преобразуем значение ползунка в децибелы
-        const volumeValue = volumes[i].value; // предполагается, что значение от 0 до 100
-        const dbValue = (volumeValue / 100) * 20; // Преобразование в диапазон от 0 до 20 дБ
-        synth.volume.value = minDbVolume + dbValue; // Устанавливаем громкость от 0 дБ до 20 дБ
+        const volumeValue = volumes[i].value;
+        synth.volume.value = volumeValue; 
 
         // Обновляем текст подсказки для громкости
-        tooltips[i].textContent = 'vol: ' + volumeValue;
+        tooltips[i].textContent = 'vol: ' + volumeValue + 'db';
     });
 
     // Обработчик изменения detune

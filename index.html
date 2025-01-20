@@ -12,6 +12,7 @@
         <div class="synth">
             <div class="panel">
                 <div class="waveform">
+                    <h3 class="control-container-title">Voice 1</h3>
                     <select id="waveform1">
                         <option value="sine">Sine</option>
                         <option value="square">Square</option>
@@ -19,20 +20,17 @@
                         <option value="sawtooth">Saw</option>
                     </select>
                     <div class="control-container">
-                        <input type="range" id="volume1" min="0" max="100" value="75" class="volume" step="10">
-                        <span class="tooltip" id="volume1-tooltip">vol: 75</span>
+                        <input type="range" id="volume1" min="-60" max="0" value="-10" class="volume" step="1">
+                        <span class="tooltip" id="volume1-tooltip">vol: -10db</span>
                     </div>
                     <div class="control-container">
                         <input type="range" id="detune1" min="-100" max="100" value="0" class="detune" step="5">
                         <span class="tooltip" id="detune1-tooltip">detune: 0</span>
                     </div>
-                    <div class="control-container">
-                        <input type="range" id="reverb1" min="0" max="100" value="0" class="reverb" step="25">
-                        <span class="tooltip" id="reverb1-tooltip">reverb: 0</span>
-                    </div>
                 </div>
             
                 <div class="waveform">
+                    <h3 class="control-container-title">Voice 2</h3>
                     <select id="waveform2">
                         <option value="sine">Sine</option>
                         <option value="square">Square</option>
@@ -40,21 +38,18 @@
                         <option value="sawtooth">Saw</option>
                     </select>
                     <div class="control-container">
-                        <input type="range" id="volume2" min="0" max="100" value="75" class="volume" step="10">
-                        <span class="tooltip" id="volume2-tooltip">vol: 75</span>
+                        <input type="range" id="volume2" min="-60" max="0" value="-10" class="volume" step="1">
+                        <span class="tooltip" id="volume2-tooltip">vol: -10db</span>
                     </div>
                     <div class="control-container">
                         <input type="range" id="detune2" min="-100" max="100" value="0" class="detune" step="5">
                         <span class="tooltip" id="detune2-tooltip">detune: 0</span>
                     </div>
-                    <div class="control-container">
-                        <input type="range" id="reverb2" min="0" max="100" value="0" class="reverb" step="25">
-                        <span class="tooltip" id="reverb2-tooltip">reverb: 0</span>
-                    </div>
                     
                 </div>
             
                 <div class="waveform">
+                    <h3 class="control-container-title">Voice 3</h3>
                     <select id="waveform3">
                         <option value="sine">Sine</option>
                         <option value="square">Square</option>
@@ -62,20 +57,17 @@
                         <option value="sawtooth">Saw</option>
                     </select>
                     <div class="control-container">
-                        <input type="range" id="volume3" min="0" max="100" value="75" class="volume" step="10">
-                        <span class="tooltip" id="volume3-tooltip">vol: 75</span>
+                        <input type="range" id="volume3" min="-60" max="0" value="-10" class="volume" step="1">
+                        <span class="tooltip" id="volume3-tooltip">vol: -10db</span>
                     </div>
                     <div class="control-container">
                         <input type="range" id="detune3" min="-100" max="100" value="0" class="detune" step="5">
                         <span class="tooltip" id="detune3-tooltip">detune: 0</span>
                     </div>
-                    <div class="control-container">
-                        <input type="range" id="reverb3" min="0" max="100" value="0" class="reverb" step="25">
-                        <span class="tooltip" id="reverb3-tooltip">reverb: 0</span>
-                    </div>
                 </div>
             
                 <div class="waveform">
+                    <h3 class="control-container-title">Voice 4</h3>
                     <select id="waveform4">
                         <option value="sine">Sine</option>
                         <option value="square">Square</option>
@@ -83,16 +75,24 @@
                         <option value="sawtooth">Saw</option>
                     </select>
                     <div class="control-container">
-                        <input type="range" id="volume4" min="0" max="100" value="75" class="volume" step="10">
-                        <span class="tooltip" id="volume4-tooltip">vol: </span>
+                        <input type="range" id="volume4" min="-60" max="0" value="-10" class="volume" step="1">
+                        <span class="tooltip" id="volume4-tooltip">vol: -10db</span>
                     </div>
                     <div class="control-container">
                         <input type="range" id="detune4" min="-100" max="100" value="0" class="detune" step="5">
                         <span class="tooltip" id="detune4-tooltip">detune: 0</span>
                     </div>
+                </div>
+
+                <div class="envelope-control">
+                    <h3 class="control-container-title">Envelope</h3>
                     <div class="control-container">
-                        <input type="range" id="reverb4" min="0" max="100" value="0" class="reverb" step="25">
-                        <span class="tooltip" id="reverb4-tooltip">reverb: 0</span>
+                        <input type="range" id="attack" min="0" max="100" value="0" class="envelope-attack" step="5">
+                        <span class="tooltip" id="attack-tooltip">attack: 0ms</span>
+                    </div>
+                    <div class="control-container">
+                        <input type="range" id="release" min="0" max="100" value="0" class="envelope-release" step="5">
+                        <span class="tooltip" id="release-tooltip">release: 0ms</span>
                     </div>
                 </div>
             </div>
